@@ -1,15 +1,17 @@
 using Mango.Services.CouponAPI.Data;
+using Mango.Services.CouponAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 // Add controller services
 builder.Services.AddControllers();
