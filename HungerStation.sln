@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{F9EAB7E9-0530-4E0F-A8F5-55DCA7C3482C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{59DB52E5-98A1-41BC-982F-1B1A9C7C84EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{8F935C17-CFE3-494F-A0A5-0FC88DA73183}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{ABA1C66C-4759-4CE4-9FB5-D32D2F379358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerStation.Services.CouponAPI", "HungerStation.Services.CouponAPI\HungerStation.Services.CouponAPI.csproj", "{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerStation.Web", "HungerStation.Web\HungerStation.Web.csproj", "{1710135F-2312-4C30-93F0-171756558BCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512} = {ABA1C66C-4759-4CE4-9FB5-D32D2F379358}
+		{1710135F-2312-4C30-93F0-171756558BCE} = {F9EAB7E9-0530-4E0F-A8F5-55DCA7C3482C}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1710135F-2312-4C30-93F0-171756558BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1710135F-2312-4C30-93F0-171756558BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1710135F-2312-4C30-93F0-171756558BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1710135F-2312-4C30-93F0-171756558BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
