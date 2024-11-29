@@ -48,6 +48,20 @@ public class AuthController : ControllerBase
         _response.Result = loginResponse;
         return Ok(_response);
     }
+    
+    [HttpPost("assignRole")]
+    
+    public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
+    {
+        var result = await _authService.AssignRoleToUser(model.Email, model.Role);
+        if (!result)
+        {
+            _response.IsSuccess = false;
+            _response.Message = "Role assignment failed";
+            return BadRequest(_response);
+        }
+        return Ok(_response);
+    }
   
     
 }
