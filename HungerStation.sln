@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerStation.Services.Coup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerStation.Web", "HungerStation.Web\HungerStation.Web.csproj", "{1710135F-2312-4C30-93F0-171756558BCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungerStation.Services.AuthAPI", "HungerStation.Services.AuthAPI\HungerStation.Services.AuthAPI.csproj", "{5E8CD844-6EA3-4588-B73D-1967BEB9957E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512} = {ABA1C66C-4759-4CE4-9FB5-D32D2F379358}
 		{1710135F-2312-4C30-93F0-171756558BCE} = {F9EAB7E9-0530-4E0F-A8F5-55DCA7C3482C}
+		{5E8CD844-6EA3-4588-B73D-1967BEB9957E} = {ABA1C66C-4759-4CE4-9FB5-D32D2F379358}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8BE114C1-2C2F-43D4-8E81-75E78EBAD512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +33,9 @@ Global
 		{1710135F-2312-4C30-93F0-171756558BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1710135F-2312-4C30-93F0-171756558BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1710135F-2312-4C30-93F0-171756558BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8CD844-6EA3-4588-B73D-1967BEB9957E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8CD844-6EA3-4588-B73D-1967BEB9957E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8CD844-6EA3-4588-B73D-1967BEB9957E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8CD844-6EA3-4588-B73D-1967BEB9957E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
