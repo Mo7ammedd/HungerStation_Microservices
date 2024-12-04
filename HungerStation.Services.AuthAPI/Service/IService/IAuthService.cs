@@ -7,6 +7,6 @@ public interface IAuthService
     
     Task<string> Register(RegistrationRequestDto registrationRequestDto);
     Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto);
-    Task<bool> AssignRoleToUser(string email, string role);
+    Task<bool> AssignRole(string email, string role);
     
 }

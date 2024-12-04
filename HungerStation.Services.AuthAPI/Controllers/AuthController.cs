@@ -1,19 +1,17 @@
-﻿using HungerStation.Services.AuthAPI.Models;
-using HungerStation.Services.AuthAPI.Models.Dto;
+﻿using HungerStation.Services.AuthAPI.Models.Dto;
 using HungerStation.Services.AuthAPI.Service.IService;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HungerStation.Services.AuthAPI.Controllers;
 
+[Route("api/auth")]
 [ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AuthAPIController : ControllerBase
 {
     private readonly IAuthService _authService;
     protected ResponseDto _response;
-    
-    public AuthController(IAuthService authService)
+
+    public AuthAPIController(IAuthService authService)
     {
         _authService = authService;
         _response = new();
@@ -29,9 +27,10 @@ public class AuthController : ControllerBase
         if (!string.IsNullOrEmpty(errorMessage))
         {
             _response.IsSuccess = false;
-            _response.Message= errorMessage;
+            _response.Message = errorMessage;
             return BadRequest(_response);
         }
+
         return Ok(_response);
     }
 
@@ -45,23 +44,26 @@ public class AuthController : ControllerBase
             _response.Message = "Username or password is incorrect";
             return BadRequest(_response);
         }
+
         _response.Result = loginResponse;
         return Ok(_response);
+
     }
-    
-    [HttpPost("assignRole")]
-    
+
+    [HttpPost("AssignRole")]
     public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
     {
-        var result = await _authService.AssignRoleToUser(model.Email, model.Role);
-        if (!result)
+        var assignRoleSuccessful = await _authService.AssignRole(model.Email, model.Role.ToUpper());
+        if (!assignRoleSuccessful)
         {
             _response.IsSuccess = false;
-            _response.Message = "Role assignment failed";
+            _response.Message = "Error encountered";
             return BadRequest(_response);
         }
+
         return Ok(_response);
+
     }
-  
-    
 }
+
+
