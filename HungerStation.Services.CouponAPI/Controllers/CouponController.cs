@@ -2,6 +2,7 @@
 using HungerStation.Services.CouponAPI.Data;
 using HungerStation.Services.CouponAPI.Models;
 using HungerStation.Services.CouponAPI.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace HungerStation.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CouponController : ControllerBase
     {
         private readonly AppDbContext _db;
@@ -73,6 +75,7 @@ namespace HungerStation.Services.CouponAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -93,6 +96,7 @@ namespace HungerStation.Services.CouponAPI.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
@@ -113,6 +117,7 @@ namespace HungerStation.Services.CouponAPI.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Delete(int id)
         {
             try

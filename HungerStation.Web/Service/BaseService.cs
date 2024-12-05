@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using HungerStation.Web.Models;
@@ -11,13 +12,15 @@ namespace HungerStation.Web.Service;
 public class BaseService : IBaseService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    
-    public BaseService(IHttpClientFactory httpClientFactory)
+    private readonly ITokenProvider _tokenProvider;
+
+    public BaseService(IHttpClientFactory httpClientFactory,ITokenProvider tokenProvider)
     {
         _httpClientFactory = httpClientFactory;
+        _tokenProvider = tokenProvider;
     }
 
-   public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+   public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBarer = true)
         {
             try
             {
@@ -25,6 +28,11 @@ public class BaseService : IBaseService
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
                 //token
+                if (withBarer)
+                {
+                    var token =  _tokenProvider.GetToken();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
                 message.RequestUri = new Uri(requestDto.Url);
                 if (requestDto.Data != null)
                 {

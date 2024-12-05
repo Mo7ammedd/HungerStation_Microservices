@@ -20,7 +20,7 @@ namespace HungerStation.Web.Service
                 ApiType = SD.ApiType.POST,
                 Data = loginRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/login"
-            });
+            },withBarer:false);
         }
 
         public async Task<ResponseDto?> RegisterAsync(RegistrationRequestDto registrationRequestDto)
@@ -30,7 +30,7 @@ namespace HungerStation.Web.Service
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/register"
-            });
+            },withBarer:false);
         }
         public async Task<ResponseDto?> AssignRoleAsync(RegistrationRequestDto registrationRequestDto)
         {
@@ -39,7 +39,7 @@ namespace HungerStation.Web.Service
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/AssignRole"
-            });
+            },withBarer:false);
         }
     }
 }
