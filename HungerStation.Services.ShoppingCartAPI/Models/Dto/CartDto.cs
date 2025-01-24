@@ -1,7 +1,8 @@
-﻿namespace HungerStation.Services.ShoppingCartAPI.Models.Dto;
-
-public class CartDto
+﻿namespace HungerStation.Services.ShoppingCartAPI.Models.Dto
 {
-    public CartHeaderDto CartHeader { get; set; }
-    public IEnumerable<CartDetailsDto>? CartDetails { get; set; }
+    public class CartDto
+    {
+        public CartHeaderDto CartHeader { get; set; }
+        public IEnumerable<CartDetailsDto>? CartDetails { get; set; }
+    }
 }

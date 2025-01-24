@@ -1,27 +1,28 @@
-﻿using System.Text.Json;
-using HungerStation.Services.ShoppingCartAPI.Models.Dto;
-using HungerStation.Services.ShoppingCartAPI1.Service.IService;
+﻿using HungerStation.Services.ShoppingCartAPI.Models.Dto;
+using HungerStation.Services.ShoppingCartAPI.Service.IService;
+using Newtonsoft.Json;
 
-namespace HungerStation.Services.ShoppingCartAPI1.Service;
-
-public class ProductService : IProductService
+namespace HungerStation.Services.ShoppingCartAPI.Service
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    public class ProductService : IProductService
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
 
-    public ProductService(IHttpClientFactory httpClientFactory)
-    {
-        _httpClientFactory = httpClientFactory;
-    }
-    public async Task<IEnumerable<ProductDto>> GetProducts()
-    {
-        var client = _httpClientFactory.CreateClient("Product");
-        var response = await client.GetAsync("api/product");
-        if (response.IsSuccessStatusCode)
+        public ProductService(IHttpClientFactory clientFactory)
         {
-            var content = await response.Content.ReadAsStringAsync();
-            var products = JsonSerializer.Deserialize<IEnumerable<ProductDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            return products;
+            _httpClientFactory = clientFactory;
         }
-        return null;
+        public async Task<IEnumerable<ProductDto>> GetProducts()
+        {
+            var client = _httpClientFactory.CreateClient("Product");
+            var response = await client.GetAsync($"/api/product");
+            var apiContet = await response.Content.ReadAsStringAsync();
+            var resp = JsonConvert.DeserializeObject<ResponseDto>(apiContet);
+            if (resp.IsSuccess)
+            {
+                return JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(Convert.ToString(resp.Result));
+            }
+            return new List<ProductDto>();
+        }
     }
 }

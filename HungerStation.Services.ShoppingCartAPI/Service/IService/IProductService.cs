@@ -1,8 +1,9 @@
 ﻿using HungerStation.Services.ShoppingCartAPI.Models.Dto;
 
-namespace HungerStation.Services.ShoppingCartAPI1.Service.IService;
-
-public interface IProductService
+namespace HungerStation.Services.ShoppingCartAPI.Service.IService
 {
-    Task<IEnumerable<ProductDto>> GetProducts();
+    public interface IProductService
+    {
+        Task<IEnumerable<ProductDto>> GetProducts();
+    }
 }

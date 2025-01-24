@@ -1,8 +1,9 @@
-﻿namespace HungerStation.Services.ShoppingCartAPI.Models.Dto;
-
-public class ResponseDto
+﻿namespace HungerStation.Services.ShoppingCartAPI.Models.Dto
 {
-    public object? Result { get; set; }
-    public bool IsSuccess { get; set; } = true;
-    public string Message { get; set; } = "";
+    public class ResponseDto
+    {
+        public object? Result { get; set; }
+        public bool IsSuccess { get; set; } = true;
+        public string Message { get; set; } = "";
+    }
 }

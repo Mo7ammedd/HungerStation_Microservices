@@ -1,8 +1,9 @@
 ﻿using HungerStation.Services.ShoppingCartAPI.Models.Dto;
 
-namespace HungerStation.Services.ShoppingCartAPI1.Service.IService;
-
-public interface ICouponService
+namespace HungerStation.Services.ShoppingCartAPI.Service.IService
 {
-    Task<CouponDto> GetCoupon(string couponCode);
+    public interface ICouponService
+    {
+        Task<CouponDto> GetCoupon(string couponCode);
+    }
 }

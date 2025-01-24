@@ -1,5 +1,8 @@
-﻿@model HungerStation.Web.Models.Dto.ProductDto
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model HungerStation.Web.Models.Dto.ProductDto
+
 <form method="post">
+    <input asp-for="ProductId" hidden />
     <div class=" pt-4">
         <div class="card container" style="border:1px solid #808080;">
             <div class="card-header bg-dark text-light row" style="border-radius: 0px;">
@@ -18,6 +21,7 @@
                         </div>
                         <div class="col-12 col-lg-8">
                             <div class="row pl-3">
+
                                 <div class="col-12">
                                     <span class="badge bg-primary text-success p-3 border">@Model.CategoryName</span>
                                     <p class="text-secondary pt-3">@Html.Raw(Model.Description)</p>
@@ -42,6 +46,7 @@
         </div>
     </div>
 </form>
+
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

@@ -1,4 +1,7 @@
-﻿<form>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<HungerStation.Web.Models.Dto.ProductDto>
+
+<form>
     <div class="container row">
         @foreach (var product in Model)
         {

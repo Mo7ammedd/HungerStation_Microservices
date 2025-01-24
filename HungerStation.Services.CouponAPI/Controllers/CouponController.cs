@@ -10,7 +10,7 @@ namespace HungerStation.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class CouponController : ControllerBase
     {
         private readonly AppDbContext _db;

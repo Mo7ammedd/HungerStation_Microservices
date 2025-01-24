@@ -2,22 +2,24 @@
 using HungerStation.Services.ShoppingCartAPI.Data;
 using HungerStation.Services.ShoppingCartAPI.Models;
 using HungerStation.Services.ShoppingCartAPI.Models.Dto;
-using HungerStation.Services.ShoppingCartAPI1.Service.IService;
+using HungerStation.Services.ShoppingCartAPI.Service.IService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.PortableExecutable;
 
-namespace HungerStation.Services.ShoppingCartAPI1.Controllers;
-
- [Route("api/cart")]
+namespace HungerStation.Services.ShoppingCartAPI.Controllers
+{
+    [Route("api/cart")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class CartAPIController : ControllerBase
     {
         private ResponseDto _response;
         private IMapper _mapper;
         private readonly AppDbContext _db;
         private IProductService _productService;
         private ICouponService _couponService;
-        public CartController(AppDbContext db,
+        public CartAPIController(AppDbContext db,
             IMapper mapper, IProductService productService, ICouponService couponService)
         {
             _db = db;
@@ -171,7 +173,6 @@ namespace HungerStation.Services.ShoppingCartAPI1.Controllers;
             }
             return _response;
         }
-    }
-            
- 
 
+    }
+}

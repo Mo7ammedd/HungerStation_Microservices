@@ -1,14 +1,15 @@
 using AutoMapper;
+using HungerStation.Services.ShoppingCartAPI;
+using HungerStation.Services.ShoppingCartAPI.Data;
+using HungerStation.Services.ShoppingCartAPI.Extensions;
+using HungerStation.Services.ShoppingCartAPI.Service;
+using HungerStation.Services.ShoppingCartAPI.Service.IService;
+using HungerStation.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using HungerStation.Services.ShoppingCartAPI.Data;
-using HungerStation.Services.ShoppingCartAPI.Extensions;
-using HungerStation.Services.ShoppingCartAPI.Helpers;
-using HungerStation.Services.ShoppingCartAPI1.Service;
-using HungerStation.Services.ShoppingCartAPI1.Service.IService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,21 +17,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    option.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddAutoMapper(typeof(MappingProfiles));
-builder.Services.AddHttpClient("Product", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]);
-});
-builder.Services.AddHttpClient("Coupon", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]);
-});
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddScoped<ICouponService, CouponService>();
-
-
+builder.Services.AddHttpClient("Product", u => u.BaseAddress =
+new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
+builder.Services.AddHttpClient("Coupon", u => u.BaseAddress =
+new Uri(builder.Configuration["ServiceUrls:CouponAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
