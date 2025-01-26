@@ -1,0 +1,6 @@
+@HungerStation.Services.EmailAPI_HostAddress = http://localhost:5267
+
+GET {{HungerStation.Services.EmailAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
