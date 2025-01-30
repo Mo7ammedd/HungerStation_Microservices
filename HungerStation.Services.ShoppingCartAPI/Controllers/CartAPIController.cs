@@ -99,7 +99,7 @@ namespace HungerStation.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                await _messageBus.PublishMessage(cartDto,_configuration.GetValue<string>("TopicOrQueueNames:EmailShoppingCart")); ;
+                await _messageBus.PublishMessage(cartDto,_configuration.GetValue<string>("TopicOrQueueNames:EmailShoppingCartQueue")); ;
                 _response.Result = true;
             }
             catch (Exception ex)
