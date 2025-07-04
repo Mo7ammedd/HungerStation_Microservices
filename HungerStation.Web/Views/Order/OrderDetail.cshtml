@@ -1,0 +1,190 @@
+@model HungerStation.Web.Models.Dto.OrderHeaderDto
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container">
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="text-white">Order Details</h1>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="container rounded p-2">
+                <div class="row">
+                    <div class="col-12 col-lg-6 pb-4">
+                        <div class="row">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-primary">Order Summary</span>
+                            </h4>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Order ID:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="OrderHeaderId" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Email:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="Email" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Name:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="Name" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Phone:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="Phone" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Order Time:</label>
+                            </div>
+                            <div class="col-9">
+                                <input value="@Model.OrderTime.ToString("MMM dd, yyyy hh:mm tt")" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Status:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="Status" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Session ID:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="StripeSessionId" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Payment Intent ID:</label>
+                            </div>
+                            <div class="col-9">
+                                <input asp-for="StripePaymentIntentId" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label>Total:</label>
+                            </div>
+                            <div class="col-9">
+                                <input value="@Model.OrderTotal.ToString("C")" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 offset-lg-1">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary">Order Items</span>
+                            <span class="badge bg-primary badge-pill">@Model.OrderDetails.Count()</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                            @foreach (var detail in Model.OrderDetails)
+                            {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="my-0">@detail.Product.Name</h6>
+                                        <small class="text-muted">Quantity: @detail.Count</small>
+                                    </div>
+                                    <span class="text-muted">@((detail.Count * detail.Product.Price).ToString("C"))</span>
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span><strong>Total (USD)</strong></span>
+                                <strong>@Model.OrderTotal.ToString("C")</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-12 col-md-6 pb-2">
+                    <a asp-action="OrderIndex" class="btn btn-success form-control btn-lg" style="height:50px;">
+                        Back to Orders
+                    </a>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-12 col-md-6">
+                        @if (Model.Status == "Approved")
+                        {
+                            <button type="button" class="btn btn-warning form-control btn-lg" style="height:50px;" onclick="updateOrderStatus('@Model.OrderHeaderId', 'ReadyForPickup')">
+                                Ready for Pickup
+                            </button>
+                        }
+                        else if (Model.Status == "ReadyForPickup")
+                        {
+                            <button type="button" class="btn btn-primary form-control btn-lg" style="height:50px;" onclick="updateOrderStatus('@Model.OrderHeaderId', 'Completed')">
+                                Complete Order
+                            </button>
+                        }
+                        else if (Model.Status == "Pending")
+                        {
+                            <button type="button" class="btn btn-success form-control btn-lg" style="height:50px;" onclick="updateOrderStatus('@Model.OrderHeaderId', 'Approved')">
+                                Approve Order
+                            </button>
+                        }
+                        else if (Model.Status == "Completed")
+                        {
+                            <button type="button" class="btn btn-danger form-control btn-lg" style="height:50px;" onclick="updateOrderStatus('@Model.OrderHeaderId', 'Refunded')">
+                                Refund Order
+                            </button>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateOrderStatus(orderId, newStatus) {
+            if (confirm('Are you sure you want to update this order status?')) {
+                $.ajax({
+                    url: '/Order/UpdateOrderStatus',
+                    type: 'POST',
+                    data: {
+                        orderId: orderId,
+                        newStatus: newStatus
+                    },
+                    success: function (response) {
+                        if (response.isSuccess) {
+                            toastr.success('Order status updated successfully!');
+                            location.reload();
+                        } else {
+                            toastr.error('Error updating order status: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An error occurred while updating order status.');
+                    }
+                });
+            }
+        }
+    </script>
+}
