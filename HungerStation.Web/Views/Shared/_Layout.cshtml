@@ -42,6 +42,11 @@
                             &nbsp; <i class="bi bi-cart"></i>&nbsp;
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Order" asp-action="OrderIndex">
+                            &nbsp; <i class="bi bi-list-ul"></i> Orders&nbsp;
+                        </a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     @if (!User.Identity.IsAuthenticated)
